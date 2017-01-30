@@ -1,0 +1,9 @@
+---
+
+# OS
+os_version: trusty
+os_arch: 64
+
+# NodeJS
+node_version: 6.2.2
+node_arch: amd64

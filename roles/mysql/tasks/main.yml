@@ -1,0 +1,20 @@
+---
+
+- name: mkdir /opt/mysql
+  file:
+    path: /opt/mysql
+    state: directory
+    mode: 0777
+
+- name: launch MySQL Docker
+  docker:
+    image: "mysql:{{ mysql_version }}"
+    name: "{{ mysql_container_name }}"
+    pull: always
+    volumes: /opt/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    state: started
+    restart_policy: always
+    env:
+      MYSQL_ROOT_PASSWORD: "{{ MYSQL_ROOT_PASSWORD }}"

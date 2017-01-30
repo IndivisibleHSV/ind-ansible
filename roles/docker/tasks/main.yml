@@ -1,0 +1,22 @@
+# Parsed out from https://get.docker.com
+
+- name: apt-key install docker key
+  apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
+
+- name: apt-add-repo https://apt.dockerproject.org/repo
+  apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-xenial main' state=present
+
+- name: apt-get install docker-engine
+  apt:
+    update_cache: yes
+    name: docker-engine={{ docker_version }}
+
+- name: pip install docker-py
+  # ansible docker module can be very picky about the version of docker-py
+  pip: name=docker-py version={{ docker_py_version }}
+
+- name: docker cleanup job
+  cron:
+    name: docker cleanup
+    hour: 1
+    job: docker images -q --filter dangling=true | xargs docker rmi

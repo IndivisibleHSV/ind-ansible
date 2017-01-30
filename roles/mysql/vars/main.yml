@@ -1,0 +1,4 @@
+---
+mysql_container_name: mysql
+mysql_version: 5.7.17
+

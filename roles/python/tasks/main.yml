@@ -1,0 +1,16 @@
+---
+
+- name: 'Install Python development packages'
+  apt: name={{ item }}
+  with_items:
+    - libpython-dev
+    - python-pip
+
+- name: 'Install needed Python packages'
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - urllib3
+    - pyopenssl
+    - ndg-httpsclient
+    - pyasn1

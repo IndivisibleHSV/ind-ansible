@@ -1,0 +1,20 @@
+---
+
+- name: packages
+  hosts: all
+  tags: setup
+  roles:
+    - { role: packages, tags: environment }
+    - { role: python, tags: python }
+
+- name: environment
+  hosts: all
+  tags: setup
+  roles:
+    - { role: docker, tags: docker }
+
+- name: mysql
+  hosts: indivisible-1
+  tags: mysql
+  roles:
+    - { role: mysql, tags: mysql }
